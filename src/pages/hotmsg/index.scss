@@ -1,0 +1,10 @@
+.hot {
+   position: relative;
+    &.on {
+        overflow: hidden;
+    }
+    .box {
+        width: 100%;
+        background: #f9f9f9;
+    }
+}

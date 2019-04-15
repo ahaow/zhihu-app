@@ -22,3 +22,19 @@ export function removeCss(href) {
         }
     }
 }
+
+export function getScrollHeight() {
+    let scrollHeight = document.documentElement.scrollHeight ? document.documentElement.scrollHeight : document.body.scrollHeight;
+    return scrollHeight;
+}
+
+
+export function getWindowHeight() {
+    let windowHeight = 0;
+    if(document.compatMode === 'CSS1Compat') {
+        windowHeight = document.documentElement.clientHeight;
+    } else {
+        windowHeight = document.body.clientHeight;
+    }
+    return windowHeight;
+}

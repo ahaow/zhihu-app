@@ -20,7 +20,6 @@ class Topbar extends React.Component {
         )
     }
     showmore() {
-        console.log(this.props)
         this.props.onChangeState()
     }
     

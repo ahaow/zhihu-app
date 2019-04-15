@@ -14,6 +14,8 @@ class Detail extends React.Component {
             title: '',
             image_source: '',
             opacity: 0,
+            t: 0,
+            l: 350
         }
     }
     createMarkup(text) {
@@ -26,11 +28,11 @@ class Detail extends React.Component {
                     <i className='iconfont iconjiantou jiantou' onClick={this.goBack.bind(this)}></i>
                     <i className='iconfont iconfenxiang fenxiang'></i>
                     <i className='iconfont iconshoucang shoucang'></i>
-                    <i className='iconfont iconpinglun pinglun'>
-                        <span>12</span>
+                    <i className='iconfont iconpinglun pinglun' onClick={this.goComment.bind(this,this.state.id)}>
+                        <span>{this.state.comments}</span>
                     </i>
                     <i className='iconfont icondianzan dianzan'>
-                        <span>112</span>
+                        <span>{this.state.popularity}</span>
                     </i>
                 </div>
                 <div className='avatar'>
@@ -43,48 +45,74 @@ class Detail extends React.Component {
         )
     }
     goBack() {
-        removeCss(this.state.bodyCss);
         this.props.history.goBack();
+    }
+    goComment(id) {
+        this.props.history.push('/comment',{
+            id
+        });
+    }
+
+    scrollOn = () => {
+        let t = this.state.t;
+        let l = this.state.l; // 总距离
+        let scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
+        if(scrollTop <= t) {
+            this.setState({
+                t: scrollTop
+            })
+            console.log('上滚')
+            this.detailTop.current.style.opacity = 1;
+        } else {
+            this.setState({
+                t: scrollTop
+            })
+            console.log('下滚')
+            console.log(scrollTop);
+            l -= 1;
+            this.detailTop.current.style.opacity = l / 1000;
+            if(scrollTop > l) {
+                this.detailTop.current.style.opacity = 0;
+            }
+        }
+
+    }
+
+    getstoryExtra(id) {
+        return axios.get(`/story-extra/${id}`)
+    }
+
+    getnewsDetail(id) {
+        return axios.get(`news/${id}`)
     }
 
     componentDidMount() {
         let id = this.props.location.state.id;
-        axios.get(`news/${id}`).then(res => {
-            console.log(res);
+
+        axios.all([this.getstoryExtra(id),this.getnewsDetail(id)]).then(axios.spread((acct,perms) => {
+            console.log(acct);
+            console.log(perms);
             this.setState({
-                bodyText: res.data.body,
-                bodyCss: res.data.css[0],
-                image: res.data.image,
-                title:  res.data.title,
-                image_source:  res.data.image_source,
+                id: perms.data.id,
+                bodyText: perms.data.body,
+                bodyCss: perms.data.css[0],
+                image: perms.data.image,
+                title:  perms.data.title,
+                image_source:  perms.data.image_source,
+                comments: acct.data.comments,
+                long_comments: acct.data.long_comments,
+                short_comments: acct.data.short_comments,
+                popularity: acct.data.popularity
             },() => {
                 addCssByLink(this.state.bodyCss);
             })
-        }).catch(err => {
-            console.log(err);
-        })
-        var t = 0;
-        var l = 350; // 总距离
-        window.onscroll = () => {
-            let scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
-            if(scrollTop < t) {
-                t = scrollTop;
-                console.log('上滚')
-                this.detailTop.current.style.opacity = 1;
-            } else {
-                t = scrollTop;
-                console.log('下滚')
-                console.log(scrollTop);
-                l -= 1;
-                this.detailTop.current.style.opacity = l / 1000;
-                if(scrollTop > l) {
-                    this.detailTop.current.style.opacity = 0;
-                }
-            }
+        }))
 
-
-        }
-
+        window.addEventListener("scroll",this.scrollOn)
+    }
+    componentWillUnmount() {
+        window.removeEventListener("scroll",this.scrollOn);
+        removeCss(this.state.bodyCss);
     }
 }
 
