@@ -100,7 +100,7 @@ class Comment extends React.Component {
             <div className='comment'>
                 <div className='comment-top'>
                     <i className='iconfont iconjiantou jiantou' onClick={this.goBack.bind(this)}></i>
-                    <span>44条评论</span>
+                    <span>{long_comments.length + short_comments.length} 条评论</span>
                 </div>
                 <Long_comments_is></Long_comments_is>
                 <Short_comments></Short_comments>
@@ -112,11 +112,11 @@ class Comment extends React.Component {
         this.props.history.goBack();
     }
     getlong_comments(id) {
-        return axios.get(`story/${id}/long-comments`);
+        return axios.get(`4/story/${id}/long-comments`);
     }
 
     getshort_comments(id) {
-        return axios.get(`story/${id}/short-comments`);
+        return axios.get(`4/story/${id}/short-comments`);
     }
 
     componentDidMount() {

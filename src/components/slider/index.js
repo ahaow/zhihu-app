@@ -61,6 +61,12 @@ class Slider extends React.Component {
                                             <span>热门消息</span>
                                         </Link>
                                     </li>
+                                    <li>
+                                        <Link to='/title'>
+                                            <i className='iconfont iconlanmu'></i>
+                                            <span>栏目总览</span>
+                                        </Link>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

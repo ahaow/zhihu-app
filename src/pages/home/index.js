@@ -34,8 +34,10 @@ class Home extends React.Component {
     render() {
         return (
             <div className='home' ref={this.home}>
-                <Topbar onChangeState={this.onChangeState.bind(this)}></Topbar>
-                <Swiper top_stories={this.state.top_stories}></Swiper>
+                <Topbar title="首页" onChangeState={this.onChangeState.bind(this)}></Topbar>
+                <div className='swiper-box'>
+                    <Swiper top_stories={this.state.top_stories}></Swiper>
+                </div>
                 <Slider 
                     home={this.home} 
                     show={this.state.show}
@@ -51,7 +53,10 @@ class Home extends React.Component {
                                 <li key={item.id}>
                                     <Link to={{
                                         pathname: `/detail`,
-                                        state: {id: item.id}
+                                        state: {
+                                            id: item.id,
+                                            name: 'home'
+                                        }
                                     }}>
                                         <div className="left-text">
                                         {item.title}
@@ -78,7 +83,7 @@ class Home extends React.Component {
             if(Math.ceil(scrollTop) + getWindowHeight() === getScrollHeight()) {
                 let resdate = this.state.resdate;
                     console.log(resdate)
-                    axios.get(`news/before/${date}`).then(res => {
+                    axios.get(`4/news/before/${date}`).then(res => {
                         console.log(res);
                         if(res.status === 200) {
                             let a = stories.concat(res.data.stories);
@@ -96,7 +101,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('news/latest').then(res => {
+        axios.get('4/news/latest').then(res => {
             if(res.status === 200) {
                 this.setState({
                     top_stories: res.data.top_stories,

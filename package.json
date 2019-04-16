@@ -31,5 +31,5 @@
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0"
   },
-  "proxy": "https://news-at.zhihu.com/api/4/"
+  "proxy": "https://news-at.zhihu.com/api/"
 }

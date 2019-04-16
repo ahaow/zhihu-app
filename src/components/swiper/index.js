@@ -45,10 +45,11 @@ class Swiper extends React.Component {
     }
 
     componentDidMount() {
+        console.log('swiper');
         console.log(this.props)
         setTimeout(() => {
             this.swiper();
-        },500)
+        },800)
         
     }
 }

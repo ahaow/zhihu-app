@@ -1,0 +1,35 @@
+.title {
+    position: relative;
+    &.on {
+        overflow: hidden;
+    }
+    .content {
+        padding: .4rem;
+        margin: 0 0 20px 0;
+        ul {
+            zoom: 1;
+            &::after {
+                content: '';
+                display: block;
+                visibility: hidden;
+                height: 0;
+                clear: both;
+            }
+            li {
+                float: left;
+                width: 47%;
+                height:1rem;
+                line-height: 1rem;
+                background-color: #00B7FD;
+                margin: 1% 1.5%;
+                text-align: center;
+                font-size: 12px;
+                border-radius: 5px;
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

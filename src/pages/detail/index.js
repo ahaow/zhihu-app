@@ -79,14 +79,16 @@ class Detail extends React.Component {
     }
 
     getstoryExtra(id) {
-        return axios.get(`/story-extra/${id}`)
+        return axios.get(`4/story-extra/${id}`)
     }
 
     getnewsDetail(id) {
-        return axios.get(`news/${id}`)
+        return axios.get(`4/news/${id}`)
     }
 
     componentDidMount() {
+        console.log(this.props);
+
         let id = this.props.location.state.id;
 
         axios.all([this.getstoryExtra(id),this.getnewsDetail(id)]).then(axios.spread((acct,perms) => {

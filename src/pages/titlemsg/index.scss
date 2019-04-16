@@ -1,9 +1,23 @@
-.hot {
-   position: relative;
-    &.on {
-        overflow: hidden;
+.titlemsg {
+    .titlemsg-top {
+        width: 100%;
+        height: 50px;
+        background: #00B7FD;
+        line-height: 50px;
+        padding: 0 .27rem;
+        color: #fff;
+        i {
+            font-size: 28px;
+            vertical-align: middle;
+        }
+        span {
+            font-size: 16px;
+            letter-spacing: 2px;
+            vertical-align: middle;
+            margin-left: 8%;
+        }
     }
-    .box {
+    .content {
         width: 100%;
         background: #f9f9f9;
         padding: .4rem;
