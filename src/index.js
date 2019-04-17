@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import './assets/css/phone_reset.css';
 import './assets/js/flexible.debug';
 import './assets/js/flexible_css.debug';
+import './config.js';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

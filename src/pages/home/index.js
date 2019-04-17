@@ -80,6 +80,7 @@ class Home extends React.Component {
             let date = this.state.date;
             let stories = this.state.stories;
             let scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
+            console.log(scrollTop);
             if(Math.ceil(scrollTop) + getWindowHeight() === getScrollHeight()) {
                 let resdate = this.state.resdate;
                     console.log(resdate)
@@ -101,6 +102,32 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        // let Storage_scrollTop = localStorage.getItem("scrollTop");
+        // let Storage_stories = localStorage.getItem("stories");
+        // console.log(Storage_scrollTop,Storage_stories)
+        // if(Storage_scrollTop && Storage_stories) {
+        //     document.documentElement.scrollTop = Storage_scrollTop + "px";
+        //     this.setState({
+        //         stories: JSON.parse(Storage_stories)
+        //     })
+        // } else {
+        //     axios.get('4/news/latest').then(res => {
+        //         if(res.status === 200) {
+        //             this.setState({
+        //                 top_stories: res.data.top_stories,
+        //                 stories: res.data.stories,
+        //                 date: res.data.date,
+        //             },() => {
+                        
+        //             })
+        //         }
+        //     }).catch(err => {
+        //         console.log(err);
+        //     })
+        //     window.addEventListener("scroll", this.getData);
+        // }
+
+
         axios.get('4/news/latest').then(res => {
             if(res.status === 200) {
                 this.setState({
@@ -115,8 +142,13 @@ class Home extends React.Component {
             console.log(err);
         })
         window.addEventListener("scroll", this.getData);
+        
     }
     componentWillUnmount() {
+        let scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
+        window.localStorage.setItem("scrollTop",Math.ceil(scrollTop));
+        window.localStorage.setItem("stories",JSON.stringify(this.state.stories));
+
         window.removeEventListener("scroll",this.getData);
     }
 }

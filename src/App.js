@@ -6,6 +6,9 @@ import Comment from './pages/comment';
 import Hotmsg from './pages/hotmsg';
 import Title from './pages/title';
 import TitleMsg from './pages/titlemsg';
+import './config';
+import 'antd-mobile/dist/antd-mobile.css';
+
 
 class App extends Component {
     render() {
