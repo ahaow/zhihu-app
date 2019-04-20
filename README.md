@@ -64,7 +64,7 @@ axios.interceptors.response.use(function(config){
 
 #### 1、知乎日报中，查看新闻详情，返回了一段 CSS链接，打开是css文件代码；
 
-解决办法：js 控制加载|移除 script 与 link 文件
+解决办法：[ 动态加载 / 移除 script 与 link 文件 ](https://github.com/ahaow/Blog/issues/15)
 
 
 
